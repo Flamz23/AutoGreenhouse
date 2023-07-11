@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Auto-Updating Chart</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="/static/socket.io.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+
+        <!-- heading, light switch -->
+        <div class="flex w-full items-center">
+            <h1 class="font-sans text-3xl text-gray-500 font-bold text-center mb-6">Auto Greenhouse</h1>
+            <button
+                class="ml-auto rounded-full drop-shadow-lg h-10 w-10 bg-white hover:bg-yellow-300 active:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-500"
+                id="light-toggle">
+                <svg class="mx-auto stroke-gray-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                    viewBox="0 96 960 960">
+                    <path
+                        d="M480 976q-34 0-57.5-23.5T399 895h162q0 34-23.5 57.5T480 976ZM318 833v-60h324v60H318Zm5-121q-66-43-104.5-107.5T180 459q0-122 89-211t211-89q122 0 211 89t89 211q0 81-38 145.5T637 712H323Zm22-60h271q48-32 76-83t28-110q0-99-70.5-169.5T480 219q-99 0-169.5 70.5T240 459q0 59 28 110t77 83Zm135 0Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-wrap -mx-2">
+
+            <!-- tank view -->
+            <div class="container mx-auto px-2 mb-4">
+                <div class="bg-white p-4 rounded-lg">
+                    <img src="./Pointcloud.png" alt="Tank View" class="mx-auto rounded-lg">
+                </div>
+            </div>
+
+            <!-- temp chart, heater chart, heater btn  style="width: 100%; height: 500px;" -->
+            <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+                <div class="bg-white shadow p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-4">Graph 1</h2>
+                    <div class="flex flex-col">
+                        <div id="temp-chart" class="w-full h-80"></div>
+                        <div id="heater-chart" class="w-full h-80"></div>
+                        <button id="heater-toggle"
+                            class="bg-blue-500 hover:bg-blue-600 drop-shadow-lg text-white font-bold mx-40 py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Heater</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- humidity chart, moisture chart, pump chart, pump btn -->
+            <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+                <div class="bg-white shadow p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-4">Graph 2</h2>
+                    <div class="flex flex-col">
+                        <div id="humid-chart" class="w-full h-80"></div>
+                        <div id="moisture-chart" class="w-full h-80"></div>
+                        <div id="pump-chart" class="w-full h-80"></div>
+                        <button id="pump-toggle"
+                            class="bg-blue-500 hover:bg-blue-600 drop-shadow-lg text-white font-bold mx-40 py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Pump</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <script defer src="/static/main.js"></script>
+        </div>
+    </div>
+</body>
+
+</html>

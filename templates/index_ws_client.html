@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto GreenHouse</title>
+    <script src="/static/socket.io.js"></script>
+</head>
+
+<body>
+    <h1>Auto GreenHouse</h1>
+    <br>
+    <p>GPIO 18 state is: </p>
+    <p id="gpioState"></p>
+    <button id="gpio-button">Get GPIO State</button>
+
+    <script defer>
+        var socket = io();
+        socket.on('gpio_state', function (state) {
+            // Update the HTML element with the state
+            document.getElementById('gpioState').innerHTML = state.toString();
+            console.log("gpio event emitted!");
+        });
+
+        document.getElementById('gpio-button').addEventListener('click', function() {
+			var data = { pin: 21 };
+            socket.emit('get_gpio_state', JSON.stringify(data));
+        });
+
+        setInterval(function () {
+        	socket.emit('refresh_request')
+        }, 1000)
+
+        socket.on('gpio_refresh', function (res) {
+        	console.log(res);
+        })
+    </script>
+</body>
+
+</html>
